@@ -13,7 +13,7 @@ dp = Dispatcher()
 @dp.message(CommandStart())
 async def start_handler(message: Message):
     await message.answer(
-        "<b>Форматы ввода:</b>\n\\n"
+        "<b>Форматы ввода:</b>\n\n"
 
         "<code>[цена 1] [цена 2]</code>\n"
         "<code>[цена 1] [цена 2] [кол-во монет]</code>\n\n"
