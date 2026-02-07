@@ -10,16 +10,16 @@ BOT_TOKEN = "8544285722:AAEM2I7UEL42O2w0-yXC3uDsLhhLElI4Vms"
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
+ans_message = """<b>Введите числа в одном из форматов:</b>
+
+<code>[цена 1] [цена 2]</code>
+<code>[цена 1] [цена 2] [кол-во монет]</code>
+
+<i>* разделитель может быть [ . ] или [ , ]</i>"""
+
 @dp.message(CommandStart())
 async def start_handler(message: Message):
-    await message.answer(
-        "<b>Введите числа в одном из форматов:</b>\n\n"
-
-        "<code>[цена 1] [цена 2]</code>\n"
-        "<code>[цена 1] [цена 2] [кол-во монет]</code>\n\n"
-        
-        "<i>* разделитель может быть [ . ] или [ , ]</i>\n\n"
-    )
+    await message.answer(ans_message)
 
 @dp.message()
 async def spread_calculator(message: Message):
@@ -51,20 +51,12 @@ async def spread_calculator(message: Message):
             )
 
         else:
-            await message.reply(
-                "🔴 <b>Введите числа в одном из форматов:</b>\n\n"
-                "<code>[цена 1] [цена 2]</code>\n"
-                "<code>[цена 1] [цена 2] [кол-во монет]</code>\n\n"
-            )
+            await message.reply("🔴 " + ans_message)
 
     except ValueError:
-        await message.reply(
-            "🔴 <b>Введите числа в одном из форматов:</b>\n\n"
-            "<code>[цена 1] [цена 2]</code>\n"
-            "<code>[цена 1] [цена 2] [кол-во монет]</code>\n\n"
-        )
+        await message.reply("🔴 " + ans_message)
     except Exception as e:
-        await message.reply("❌ Произошла ошибка. Попробуйте еще раз.")
+        await message.reply("🔴 " + ans_message)
 
 async def main():
     await dp.start_polling(bot)
